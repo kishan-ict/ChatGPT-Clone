@@ -18,7 +18,7 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
-![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white)
+![Drizzle](https://img.shields.io/badge/Drizzle_ORM-C5F74F?style=for-the-badge&logo=drizzle&logoColor=black)
 ![Google Gemini](https://img.shields.io/badge/Google_Gemini-4285F4?style=for-the-badge&logo=google&logoColor=white)
 
 <br/>
@@ -27,6 +27,7 @@
 ![GitHub forks](https://img.shields.io/github/forks/kishan-ict/ChatGPT-Clone?style=flat-square&color=blue)
 ![GitHub issues](https://img.shields.io/github/issues/kishan-ict/ChatGPT-Clone?style=flat-square&color=red)
 ![License](https://img.shields.io/github/license/kishan-ict/ChatGPT-Clone?style=flat-square&color=green)
+![Top Language](https://img.shields.io/github/languages/top/kishan-ict/ChatGPT-Clone?style=flat-square&color=3178C6)
 
 </div>
 
@@ -47,7 +48,7 @@
 
 ## ✨ Overview
 
-> **ChatGPT Clone** is a production-ready AI chat application that mirrors the experience of ChatGPT — built entirely from scratch using modern web technologies. Powered by **Google Gemini AI**, backed by **Supabase + Prisma**, and authenticated via **NextAuth**, this project goes beyond a basic clone to deliver a full-featured AI platform.
+> **ChatGPT Clone** is a production-ready AI chat application that mirrors the experience of ChatGPT — built from scratch using modern web technologies. Powered by **Google Gemini AI**, backed by **Supabase + Drizzle ORM**, and authenticated via **NextAuth**, this project delivers a full-featured AI chat platform.
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -55,8 +56,8 @@
 │   User  ──►  Next.js App  ──►  Google Gemini API           │
 │               │     │                  │                    │
 │               ▼     ▼                  ▼                    │
-│          NextAuth  Prisma ORM  ◄──  Supabase DB            │
-│           (Auth)   (Queries)       (Postgres)               │
+│          NextAuth  Drizzle ORM  ◄──  Supabase DB           │
+│           (Auth)    (Queries)       (Postgres)              │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -91,7 +92,7 @@
 ║  Styling          ║  Tailwind CSS                    ║
 ║  AI Provider      ║  Google Gemini API               ║
 ║  Auth             ║  NextAuth.js                     ║
-║  ORM              ║  Prisma                          ║
+║  ORM              ║  Drizzle ORM                     ║
 ║  Database         ║  Supabase (PostgreSQL)           ║
 ║  Deployment       ║  Vercel                          ║
 ╚═══════════════════╩══════════════════════════════════╝
@@ -100,7 +101,7 @@
 ### Why this stack?
 
 - **Next.js 15** — App Router for server components, streaming, and edge-ready performance
-- **Prisma + Supabase** — Type-safe database queries on a scalable, real-time Postgres backend
+- **Drizzle + Supabase** — Lightweight, type-safe ORM on a scalable Postgres backend
 - **Google Gemini** — State-of-the-art AI with a generous free tier via AI Studio
 - **NextAuth** — Plug-and-play auth with Google OAuth, zero headaches
 
@@ -124,12 +125,13 @@ ChatGPT-Clone/
 │   └── ...
 │
 ├── 📁 lib/                    # Utilities & helpers
-│   ├── prisma.ts              # Prisma client singleton
+│   ├── db.ts                  # Drizzle client
 │   └── gemini.ts              # Gemini API wrapper
 │
-├── 📁 prisma/
-│   └── schema.prisma          # Database schema
+├── 📁 db/
+│   └── schema.ts              # Drizzle schema
 │
+├── drizzle.config.ts          # Drizzle config
 ├── .env.local                 # 🔒 Your secrets (never commit!)
 ├── next.config.ts
 └── package.json
@@ -170,19 +172,12 @@ npm install
 
 ### 3️⃣ Configure Environment Variables
 
-Create a `.env.local` file in the root directory:
-
-```bash
-cp .env.example .env.local   # if example exists, or create manually
-```
-
-Then fill in your values (see [Environment Variables](#-environment-variables) section below).
+Create a `.env.local` file in the root directory and fill in your values (see [Environment Variables](#-environment-variables) below).
 
 ### 4️⃣ Push the Database Schema
 
 ```bash
-npx prisma generate
-npx prisma db push
+npx drizzle-kit push
 ```
 
 ### 5️⃣ Run the Development Server
@@ -242,7 +237,7 @@ NEXTAUTH_URL="http://localhost:3000"
 This project is optimized for **[Vercel](https://vercel.com)** — zero config needed.
 
 ```
-1. Push your code to a GitHub repository
+1. Push your code to GitHub
          │
          ▼
 2. Go to vercel.com → Import Project → Select your repo
@@ -263,7 +258,7 @@ This project is optimized for **[Vercel](https://vercel.com)** — zero config n
 
 ## 📸 Screenshots
 
-> _Add your own screenshots here to show off your UI!_
+> _Drop your screenshots here to show off the UI!_
 >
 > ```markdown
 > ![Chat UI](./public/screenshots/chat.png)
@@ -274,7 +269,7 @@ This project is optimized for **[Vercel](https://vercel.com)** — zero config n
 
 ## 🤝 Contributing
 
-Contributions are welcome! Here's how to get involved:
+Contributions are welcome! Here's how:
 
 ```bash
 # 1. Fork the repo on GitHub
